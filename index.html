@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Kasey Kane
+Intro to cpsc, 10am
+Matchmaker for the web
+11/22/20-->
+<head>
+    <meta charset="UTF-8">
+    <title>MatchMaker</title>
+</head>
+<body style='background-color:rgba(255, 4, 130, 0.562);'>
+    <h1 style='color:rgb(172, 4, 250); text-align:center;'>MatchMaker</h1>
+    <h4 style='text-align:center;'>  
+        Welcome to the MATCHMAKER! 
+        <br /> <br />
+
+        Will you match with the one and only Kasey Kane? 
+        <br /><br />
+        Take this short test to find out your chances...
+        <br /><br />
+        To take the test, answer with a <br />
+            5 if you strongly agree, <br />
+            4 if you agree, <br />
+            3 if you are neutral, <br />
+            2 if you disagree, <br />
+            and 1 if you completely disagree. 
+            <br /><br />
+        Good luck!!! May your odds be in my favor ;)</h4>
+    <br /><br />
+    <label>Dogs are the best.</label>
+    <select id='q1'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disgree</option>
+    </select>
+
+    <br /><br />
+    <label>Golf is the most boring sport in the world.</label>
+    <select id='q2'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disgree</option>
+    </select>
+    <br /><br />
+
+    <label>I would love to be able to travel to every continent.</label>
+    <select id='q3'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disgree</option>
+    </select>
+    <br /><br />
+
+    <label>Sushi is pretty gross.</label>
+    <select id='q4'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disgree</option>
+    </select>
+    <br /><br />
+
+    <label>The book is almost always better than the movie.</label>
+    <select id='q5'>
+        <option value='5'>Strongly Agree</option>
+        <option value='4'>Agree</option>
+        <option value='3'>Neutral</option>
+        <option value='2'>Disagree</option>
+        <option value='1'>Strongly Disgree</option>
+    </select>
+    <br /><br />
+
+    <button onclick='calculateCompatibility()'>Calculate Compatibility!</button>
+    <p id='compatibility'> </p>
+
+<script>
+console.log('Start Matchmaker');
+function calculateCompatibility() {
+    console.log('calculateCompatibility()');
+
+    const DESIRED_RESPONSE = [
+        5,
+        1,
+        4,
+        1,
+        5,
+    ]
+
+    const MAX_SCORE = 25;
+
+    let question1Response = document.getElementById('q1').selectedOptions[0].value;
+    let question2Response = document.getElementById('q2').selectedOptions[0].value;
+    let question3Response = document.getElementById('q3').selectedOptions[0].value;
+    let question4Response = document.getElementById('q4').selectedOptions[0].value;
+    let question5Response = document.getElementById('q5').selectedOptions[0].value;
+
+    console.log('Question 1 Answers:');
+    console.log(document.getElementById('q1').selectedOptions[0].text);
+    console.log(document.getElementById('q1').selectedOptions[0].value);
+    console.log(question1Response);
+
+    console.log('Question 2 Answers:');
+    console.log(document.getElementById('q2').selectedOptions[0].text);
+    console.log(document.getElementById('q2').selectedOptions[0].value);
+    console.log(question2Response);
+
+    console.log('Question 3 Answers:');
+    console.log(document.getElementById('q3').selectedOptions[0].text);
+    console.log(document.getElementById('q3').selectedOptions[0].value);
+    console.log(question3Response);
+
+    console.log('Question 4 Answers:');
+    console.log(document.getElementById('q4').selectedOptions[0].text);
+    console.log(document.getElementById('q4').selectedOptions[0].value);
+    console.log(question4Response);
+
+    console.log('Question 5 Answers:');
+    console.log(document.getElementById('q5').selectedOptions[0].text);
+    console.log(document.getElementById('q5').selectedOptions[0].value);
+    console.log(question5Response);
+
+//calculating compatibilty scores
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+
+    console.log('c1='+ question1Compatibility);
+    console.log('c2='+ question2Compatibility);
+    console.log('c3='+ question3Compatibility);
+    console.log('c4='+ question4Compatibility);
+    console.log('c5='+ question5Compatibility);
+
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
+    totalCompatibility *= 100/MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log('totalCompatibility=' + totalCompatibility);
+
+//setting threshhold scores
+    let threshhold = 'We are a perfect match! Ask me out sometime.';
+    let threshhold2 = 'Can we be friends?';
+    let threshhold3 = 'You should probably run. Sorry.'
+    let userOutput = '<h2>Your compatibility is...' + totalCompatibility + '%</h2>';
+    
+    if (totalCompatibility > 89) {
+        userOutput += threshhold;
+    } else if (totalCompatibility > 69) {
+        userOutput += threshhold2;
+    } else {
+        userOutput += threshhold3;
+    }
+    
+    document.getElementById('compatibility').innerHTML = userOutput;
+
+}
+</script>
+
+</body>
+</html>
