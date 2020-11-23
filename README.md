@@ -1,5 +1,6 @@
 # matchmaker-for-web-kk
 Kasey Kane
+kaseytkane@lewisu.edu
 11/22/20
 Matchmaker for the Web - Sprint 06
 
